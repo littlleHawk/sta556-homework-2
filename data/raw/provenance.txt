@@ -1,0 +1,11 @@
+mining-production.csv used in HW2: 
+    Sourced from: https://github.com/kadoa-org/world-mining-monitor
+    Download from: https://www.kadoa.com/mining/production
+    Acsessed Oct 17, 2026 12:34 pm
+    Saved in  data/raw
+
+thalanga.geoh5 used in HW2:
+    Sourced from : https://geoscience.data.qld.gov.au/data/dataset/ds100103/resource/ecadcc5f-f4db-4964-9652-cccf3d73435f
+    Download from : https://geoscience.data.qld.gov.au/data/dataset/ds100103/resource/ecadcc5f-f4db-4964-9652-cccf3d73435f
+    Acsessed Oct 17, 2026 12:34 pm
+    Saved in  data/raw
