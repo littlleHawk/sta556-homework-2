@@ -16,6 +16,7 @@ Requirements:
 
 import re
 
+import numpy as np
 import pandas as pd
 
 # Calendar quarters covered by every label that is not already a plain "Qn YYYY".
@@ -121,3 +122,20 @@ def apply_extraction_units(df:pd.DataFrame, output_col_name:str, units_col: str,
     df[output_col_name] = df[val_col_name] * df[units_col].map(unit_to_kg)
 
     return df
+
+def log_transform(df:pd.DataFrame, transform_col: str, output_col_name:str):
+    """Accepts a dataframa and adds a column that is the log transform of that column.
+    If the column in not numeric, raise a warning and return the original df.
+    Also drops rows with 0 or less as the value because log(0) = -inf"""
+
+    df_out = df
+    # As of now, float is the only data type I use this transform on,
+    # could be expanded to include ints
+    if df[transform_col].dtypes != "float64":
+        raise UserWarning(f"Column {transform_col} is not a numeric data type. Returning original dataframe\n")
+    else:
+        df_out = df.dropna().copy()
+        df_out = df_out[df_out[transform_col] > 0].copy() # filter out zeroes and negatives
+        df_out[output_col_name] = np.log(df_out[transform_col])
+    return df_out
+
