@@ -97,6 +97,9 @@ def homogenize_time_periods_and_split_values(df:pd.DataFrame, period_col_name:st
     return_df = return_df.explode("quarter", ignore_index=True)
     # Add a year column
     return_df["year"] = return_df["quarter"].str[-4:].astype(int)
+    # and quarter of the year column
+    return_df["quarter_of_year"] = return_df["quarter"].str.extract(r"(Q[1-4])")
+
     return return_df
 
 
@@ -139,3 +142,6 @@ def log_transform(df:pd.DataFrame, transform_col: str, output_col_name:str):
         df_out[output_col_name] = np.log(df_out[transform_col])
     return df_out
 
+def filter_top_n_values(df: pd.DataFrame, col_name:str, num_values: int):
+    top_n_list = list(df[col_name].value_counts().head(num_values).index)
+    return df[df[col_name].isin(top_n_list)].copy(deep=True)
