@@ -137,8 +137,8 @@ def log_transform(df:pd.DataFrame, transform_col: str, output_col_name:str):
     if df[transform_col].dtypes != "float64":
         raise UserWarning(f"Column {transform_col} is not a numeric data type. Returning original dataframe\n")
     else:
-        df_out = df.dropna().copy()
-        df_out = df_out[df_out[transform_col] > 0].copy() # filter out zeroes and negatives
+        df_out = df.fillna(0).copy(deep=True)
+        df_out = df_out[df_out[transform_col] > 0].copy(deep=True) # filter out zeroes and negatives
         df_out[output_col_name] = np.log(df_out[transform_col])
     return df_out
 
