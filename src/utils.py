@@ -1,19 +1,3 @@
-""" 3 Functions
-
-Suggested examples:
-def clean_columns(data):
-...
-def filter_records(data):
-...
-def summarize_group(data, group_col):
-...
-Requirements:
-1
-• each function has a clear purpose;
-• avoid unnecessary global variables;
-• return objects rather than relying only on print;
-• use sensible names and docstrings"""
-
 import re
 
 import numpy as np
@@ -105,6 +89,8 @@ def homogenize_time_periods_and_split_values(df:pd.DataFrame, period_col_name:st
 
 
 def _map_quarters(label):
+    """Helper function for homogenize_time_periods_and_split_values. Uses the TIME_PD_TO_QTR_MAPPING
+    dicitonary to map each non-quarterly time period to the correct correspoinding set of quarters"""
     label = str(label)
     # Return matched label in the mapping
     if label in TIME_PD_TO_QTR_MAPPING:
@@ -143,5 +129,6 @@ def log_transform(df:pd.DataFrame, transform_col: str, output_col_name:str):
     return df_out
 
 def filter_top_n_values(df: pd.DataFrame, col_name:str, num_values: int):
+    """Filter a dataset to contain only rows with the top n values of a particular column"""
     top_n_list = list(df[col_name].value_counts().head(num_values).index)
     return df[df[col_name].isin(top_n_list)].copy(deep=True)
